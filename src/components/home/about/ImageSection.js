@@ -12,8 +12,8 @@ const ImageSection = ({ data }) => {
       className="img-container"
     >
       <NextImage
-        src={data?.WebImageURL}
-        alt={data?.ImageAlt}
+        src={data[0]?.ImageUrl}
+        alt={data[0]?.Name}
         width={450}
         height={600}
         placeholder="blur"

@@ -32,6 +32,7 @@ const Home = (props) => {
     locale = "en",
     bannerData,
     WhoDacData,
+    WhoDacContent,
     DivsData,
     projectsData,
     clientsData,
@@ -39,7 +40,6 @@ const Home = (props) => {
     seoData,
     absoluteUrl,
   } = props;
-  console.log(contactData);
   return (
     <>
       <Head>
@@ -76,9 +76,13 @@ const Home = (props) => {
         )}
 
         {Object.keys(WhoDacData).length !== 0 && (
-          <AboutSection data={WhoDacData} locale={locale} />
+          <AboutSection
+            data={WhoDacData}
+            content={WhoDacContent}
+            locale={locale}
+          />
         )}
-        {Object.keys(WhoDacData).length !== 0 && (
+        {Object.keys(DivsData).length !== 0 && (
           <DivSec data={DivsData} locale={locale} />
         )}
 
@@ -111,7 +115,9 @@ export const getServerSideProps = async ({ locale, resolvedUrl, req }) => {
 
   const urls = [
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/Banner/${process.env.COUNTRY_CODE}/HomePageBanner/${locale}`,
-    `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/Section/${process.env.COUNTRY_CODE}/${locale}/WhoDac`,
+    // `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/Section/${process.env.COUNTRY_CODE}/${locale}/WhoDac`,
+    `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/AdvancedContent/${process.env.COUNTRY_CODE}/whodac/${locale}/Category`,
+    `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/AdvancedContent/${process.env.COUNTRY_CODE}/whodac/${locale}/Category/whoweare/Content`,
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/AdvancedContent/${process.env.COUNTRY_CODE}/divisions/${locale}/Content`,
     // `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/AdvancedContent/${process.env.COUNTRY_CODE}/projects/${locale}/Category`,
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/AdvancedContent/${process.env.COUNTRY_CODE}/Projects/${locale}/Content`,
@@ -124,6 +130,7 @@ export const getServerSideProps = async ({ locale, resolvedUrl, req }) => {
     const [
       { Results: bannerData },
       { Results: WhoDacData },
+      { Results: WhoDacContent },
       { Results: DivsData },
       { Results: projectsData },
       { Results: clientsData },
@@ -141,12 +148,13 @@ export const getServerSideProps = async ({ locale, resolvedUrl, req }) => {
 
         return res.json();
       })
-    );
+      );
 
     return {
       props: {
         bannerData: bannerData || [],
-        WhoDacData: WhoDacData || {},
+        WhoDacData: WhoDacData || [],
+        WhoDacContent: WhoDacContent || [],
         DivsData: DivsData || [],
         projectsData: projectsData || [],
         clientsData: clientsData || [],

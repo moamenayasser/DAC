@@ -82,7 +82,10 @@ const DivSec = ({ data }) => {
             {data?.map((item, index) => (
               <Grid item sm={6} md={2} position="relative" key={index}>
                 {/* <Link href="#"> */}
-                <a className="inner-box" href="">
+                <Link
+                  className="inner-box"
+                  href={`/divisions?active=${item.UniqueName}`}
+                >
                   <div>
                     <NextImage
                       src={item?.ImageUrl}
@@ -105,7 +108,7 @@ const DivSec = ({ data }) => {
                       {item?.Name}
                     </Typography>
                   </div>
-                </a>
+                </Link>
                 {/* </Link> */}
               </Grid>
             ))}

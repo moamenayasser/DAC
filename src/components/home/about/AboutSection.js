@@ -47,7 +47,7 @@ const AboutBox = styled("div")(({ theme }) => ({
   },
 }));
 
-const AboutSection = ({ data }) => {
+const AboutSection = ({ data , content }) => {
   return (
     <AboutBox>
       <Container fixed>
@@ -69,7 +69,7 @@ const AboutSection = ({ data }) => {
           </Grid>
 
           <Grid item sm={12} md={6} position="relative">
-            <InfoSection data={data} />
+            <InfoSection data={data} content={content} />
           </Grid>
         </Grid>
       </Container>
