@@ -45,7 +45,7 @@ const Projects = (props) => {
     (item) => item.TypeName === "YoutubeLink"
   );
 
-  // Get the title and view website
+  // Get the title and view website(project)
   const itemLink = projectsMedia?.filter(
     (item) => item.TypeName === "Link" && item.Featured
   );
