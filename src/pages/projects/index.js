@@ -47,7 +47,7 @@ const Projects = (props) => {
 
   // Get the title and view website
   const itemLink = projectsMedia?.filter(
-    (item) => item.TypeName === "Link" && item.Prima
+    (item) => item.TypeName === "Link" && item.Featured
   );
 
   const router = useRouter();
@@ -154,7 +154,6 @@ const Projects = (props) => {
             {projectsData.length === 0 &&
               youtubeLinks.length === 0 &&
               itemLink.length === 1 &&
-              // <EmptyItem />
               itemLink?.map((item, index) => (
                 <Grid key={index} item sm={6} md={6}>
                   <TitleItems item={item} />
