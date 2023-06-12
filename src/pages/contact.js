@@ -66,14 +66,12 @@ const Contact = (props) => {
         )}
 
         {contactData?.length !== 0 && (
-       
-            <>
-              {contactData?.map(
-                (item, index) =>
-                  item.Status && <ContactItem key={index} item={item} />
-              )}
-            </>
-          
+          <>
+            {contactData?.map(
+              (item, index) =>
+                item.Status && <ContactItem key={index} item={item} />
+            )}
+          </>
         )}
 
         <div
@@ -81,20 +79,20 @@ const Contact = (props) => {
             paddingTop: 56,
             paddingBottom: 56,
             backgroundColor: "#f8f8f8",
-
           }}
         >
-          <Container fixed sx={{ maxWidth:{md: "64%" }}} justifyContent="center" className="black">
+          <Container fixed sx={{ maxWidth: { md: "64%" } }} className="black">
             <Typography
-              variant="h4"
+              variant="h2"
               component="h3"
               marginBottom="20px"
-              color="primary"
-              textTransform="capitalize"
+              color="#000"
+              textTransform="uppercase"
             >
-              {useResources("contactTitle")}{" "}
+              {useResources("contactus")}
+              {/* {useResources("contactTitle")}{" "} */}
             </Typography>
-            {!isLoading && <DynamicContactForm />}
+            {!isLoading && <DynamicContactForm locale={locale} />}
           </Container>
         </div>
       </>

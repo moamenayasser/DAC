@@ -11,9 +11,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import useResources from "@/hooks/useResources";
 import CustomSnackBar from "../CustomSnackBar";
 import { getClientHost } from "@/utils";
-import useSpecialties from "@/hooks/useSpecialties";
-
-
+import useDivisions from "@/hooks/useDivisions";
 
 const initialValues = {
   firstName: "",
@@ -50,19 +48,18 @@ const initialErrors = {
   },
 };
 
-const ContactForm = () => {
+const ContactForm = ({locale}) => {
   const [formValues, setFormValues] = useState(initialValues);
   const [errors, setErrors] = useState(initialErrors);
   const [isSubmit, setIsSubmit] = useState(false);
   const [showSnack, setShowSnack] = useState(false);
   const [serverError, setServerError] = useState(false);
 
-  //   const { data: specialtiesData } = useSpecialties();
-  //  const specialData = specialtiesData?.map((item) => ({
-  //     value: item.UniqueName,
-  //     label: item.Name,
-  //   }));
-
+  const { data: DivisionsData } = useDivisions(locale);
+  const DivisionData = DivisionsData?.map((item) => ({
+    value: item.UniqueName,
+    label: item.Name,
+  }));
 
   const handleCloseSnack = (event, reason) => {
     if (reason === "clickaway") {
@@ -183,9 +180,9 @@ const ContactForm = () => {
         type={serverError ? "error" : "success"}
       />
 
-      <form onSubmit={handleSubmit} noValidate >
-        <Grid container spacing={1} mb={5} >
-          <Grid item xs={12} sm={6} >
+      <form onSubmit={handleSubmit} noValidate>
+        <Grid container spacing={1} mb={5}>
+          <Grid item xs={12} sm={6}>
             <TextField
               name="firstName"
               label={useResources("firstName")}
@@ -344,7 +341,7 @@ const ContactForm = () => {
             <TextField
               name="services"
               select
-              label={useResources("Specialities")}
+              label={useResources("Divisions")}
               variant="standard"
               fullWidth
               value={formValues.services}
@@ -356,19 +353,17 @@ const ContactForm = () => {
                 "& .MuiInputBase-root": {
                   backgroundColor: "transparent",
                   "&:hover": { backgroundColor: "transparent" },
+                  
                 },
               }}
               inputProps={{ className: "blackoutline" }}
               InputLabelProps={{ className: "black top" }}
             >
-              <MenuItem >
-
-              </MenuItem>
-              {/* {specialData.map((option) => (
+              {DivisionData?.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
                   {option.label}
                 </MenuItem>
-              ))} */}
+              ))}
             </TextField>
           </Grid>
 
@@ -381,7 +376,6 @@ const ContactForm = () => {
               required
               rows={4}
               multiline
-              maxRows={4}
               value={formValues.message}
               onChange={handleFieldChange}
               error={Boolean(errors.message.required)}

@@ -11,7 +11,6 @@ import NextImage from "@/components/NextImage";
 const BannerItem = ({ item, index }) => {
   return (
     <>
-
       {item.BannerType === 1 && (
         <NextImage
           className="banner-bg"
@@ -25,17 +24,26 @@ const BannerItem = ({ item, index }) => {
         />
       )}
       {item.BannerType === 2 && (
-        <video width="100%" height="100%" playsInline loop autoPlay muted
+        <video
+          width="100%"
+          height="100%"
+          playsInline
+          loop
+          autoPlay
+          muted
+          poster="/images/v-poster.webp"
           style={{
-            objectFit: "cover", position: "absolute",
+            objectFit: "cover",
+            position: "absolute",
             left: 0,
             right: 0,
             top: 0,
             width: "100%",
-            height: "100%"
-          }} className="banner-bg">
+            height: "100%",
+          }}
+          className="banner-bg"
+        >
           <source src={item.Video} type="video/mp4" />
-
         </video>
       )}
 

@@ -5,7 +5,6 @@ import Fab from "@mui/material/Fab";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import SlideInHeader from "./header/SlideInHeader";
 import Header from "./header/Header";
-import useSpecialties from "@/hooks/useSpecialties";
 import ScrollToTop from "./ScrollToTop";
 
 const DynamicFooter = dynamic(
@@ -118,14 +117,6 @@ const Layout = (props) => {
     setScrollToTopTriggerHeight(window.innerHeight);
   }, []);
 
-  const { data } = useSpecialties(locale);
-  const formateData = data?.map((item, index) => ({
-    id: index,
-    title: item.Name,
-    useRes: false,
-    href: `/divisions?active=${item.UniqueName}`,
-  }));
-
   const footerLinks = [
     {
       id: 1,
@@ -186,12 +177,7 @@ const Layout = (props) => {
 
         <main style={{ flexGrow: 1, width: "100%" }}>{children}</main>
 
-        <DynamicFooter
-          footerLinks={footerLinks}
-          locale={locale}
-          specialtiesData={data}
-          contactData={data}
-        />
+        <DynamicFooter footerLinks={footerLinks} locale={locale} />
 
         <DynamicCopyRight />
       </Stack>

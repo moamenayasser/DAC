@@ -24,7 +24,7 @@ const TitleItems = ({ item }) => {
         mb={3}
         fontWeight="600"
       >
-        {item.ShortDescription}
+        {item?.ShortDescription}
       </Typography>
       <Button
         variant="standard"
@@ -34,11 +34,7 @@ const TitleItems = ({ item }) => {
         component={Link}
         href={item?.URL}
         target="_blank"
-        style={{
-          backgroundColor: "#fff",
-          color: "#000",
-          borderColor: "#000",
-        }}
+        
       >
         {item?.Name}
       </Button>

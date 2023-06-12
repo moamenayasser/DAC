@@ -10,7 +10,7 @@ const ProjectsHeading = (props) => {
 
   return (
     <Grid container spacing={3} mb={{ md: 5, xs: 2 }} alignItems="center">
-      <Grid item xs={12} md={7} position="relative" data-aos="fade-up">
+      <Grid item xs={12} md={11} position="relative" data-aos="fade-up">
         <div className="section-title">
           <Typography
             variant="h2"

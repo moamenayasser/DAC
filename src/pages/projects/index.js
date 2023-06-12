@@ -27,7 +27,7 @@ const Projects = (props) => {
   const {
     locale = "en",
     bannerData,
-    specialitiesData,
+    divisionsData,
     projectsData,
     projectsMedia,
     downloadProfileData,
@@ -35,10 +35,10 @@ const Projects = (props) => {
     seoData,
     absoluteUrl,
   } = props;
-  const specialitiesWithAll = [
-    // { Name: "allProjects", UniqueName: "all" },
-    ...specialitiesData,
-  ];
+  // const specialitiesWithAll = [
+  //   // { Name: "allProjects", UniqueName: "all" },
+  //   ...divisionsData,
+  // ];
 
   // Get the YoutubeLink
   const youtubeLinks = projectsMedia?.filter(
@@ -60,25 +60,14 @@ const Projects = (props) => {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    router.push(
-      `/projects?active=${specialitiesWithAll[newValue]?.UniqueName}`
-    );
-
-    // ALL Projects
-    // if (newValue === 0) {
-    //   router.push("/projects");
-    // } else {
-    //   router.push(
-    //     `/projects?active=${specialitiesWithAll[newValue]?.UniqueName}`
-    //   );
-    // }
+    router.push(`/projects?active=${divisionsData[newValue]?.UniqueName}`);
   };
 
   useEffect(() => setIsLoading(false), []);
 
   useEffect(() => {
     if (active) {
-      const getIndex = specialitiesWithAll.findIndex(
+      const getIndex = divisionsData.findIndex(
         (item) => item.UniqueName === active
       );
 
@@ -138,7 +127,7 @@ const Projects = (props) => {
           />
         ) : (
           <DynamicProjectsTabs
-            data={specialitiesWithAll}
+            data={divisionsData}
             value={value}
             handleChange={handleChange}
           />
@@ -162,9 +151,19 @@ const Projects = (props) => {
                 ))}
             </Grid>
 
-            {projectsData.length === 0 && youtubeLinks.length === 0 && (
-              <EmptyItem />
-            )}
+            {projectsData.length === 0 &&
+              youtubeLinks.length === 0 &&
+              itemLink.length === 1 &&
+              // <EmptyItem />
+              itemLink?.map((item, index) => (
+                <Grid key={index} item sm={6} md={6}>
+                  <TitleItems item={item} />
+                </Grid>
+              ))}
+
+            {projectsData.length === 0 &&
+              youtubeLinks.length === 0 &&
+              itemLink.length === 0 && <EmptyItem />}
           </Container>
         </div>
 
@@ -199,7 +198,7 @@ export const getServerSideProps = async (ctx) => {
   try {
     const [
       { Results: bannerData },
-      { Results: specialitiesData },
+      { Results: divisionsData },
       { Results: downloadprofile },
       { Results: downloadform },
       { Results: seoData },
@@ -217,58 +216,48 @@ export const getServerSideProps = async (ctx) => {
     let projectsData;
     let projectsMedia;
 
-    if (active) {
-      const isExist = specialitiesData.find(
-        (item) => item.UniqueName === active
-      );
-      if (!isExist) {
-        return {
-          notFound: true,
-        };
-      }
-      const url = `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/AdvancedContent/${process.env.COUNTRY_CODE}/Projects/${locale}/Category/${active}/Content`;
-
-      const res = await fetch(url, {
-        headers: {
-          Authorization: process.env.AUTHORIZATION,
-        },
-      });
-      const data = await res.json();
-      projectsData = data?.Results;
-
-      const mediaUrl = `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/AdvancedContent/${process.env.COUNTRY_CODE}/projects/${locale}/Category/${active}/Media`;
-
-      const resMedia = await fetch(mediaUrl, {
-        headers: {
-          Authorization: process.env.AUTHORIZATION,
-        },
-      });
-
-      const Mediadata = await resMedia.json();
-      projectsMedia = Mediadata?.Results;
-    } else {
+    const isExist = active
+      ? divisionsData.find((item) => item.UniqueName === active)
+      : divisionsData[0].UniqueName;
+    if (!isExist) {
       return {
-        redirect: {
-          destination: `${locale}/projects?active=${specialitiesData[0].UniqueName}`,
-          permanent: false,
-        },
+        notFound: true,
       };
-      // const url = `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/AdvancedContent/${process.env.COUNTRY_CODE}/Projects/${locale}/Content`;
-
-      // const res = await fetch(url, {
-      //   headers: {
-      //     Authorization: process.env.AUTHORIZATION,
-      //   },
-      // });
-
-      // const data = await res.json();
-      // projectsData = data?.Results;
     }
+
+    const url = `${process.env.API_URL}/API/${
+      process.env.PROJECT_CODE
+    }/AdvancedContent/${process.env.COUNTRY_CODE}/Projects/${locale}/Category/${
+      active ? active : divisionsData[0].UniqueName
+    }/Content`;
+
+    const res = await fetch(url, {
+      headers: {
+        Authorization: process.env.AUTHORIZATION,
+      },
+    });
+    const data = await res.json();
+    projectsData = data?.Results;
+
+    const mediaUrl = `${process.env.API_URL}/API/${
+      process.env.PROJECT_CODE
+    }/AdvancedContent/${process.env.COUNTRY_CODE}/projects/${locale}/Category/${
+      active ? active : divisionsData[0].UniqueName
+    }/Media`;
+
+    const resMedia = await fetch(mediaUrl, {
+      headers: {
+        Authorization: process.env.AUTHORIZATION,
+      },
+    });
+
+    const Mediadata = await resMedia.json();
+    projectsMedia = Mediadata?.Results;
 
     return {
       props: {
         bannerData: bannerData[0] || {},
-        specialitiesData: specialitiesData || [],
+        divisionsData: divisionsData || [],
         projectsData: projectsData || [],
         projectsMedia: projectsMedia || [],
         downloadProfileData: downloadprofile || {},

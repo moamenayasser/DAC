@@ -7,7 +7,6 @@ import { TransitionGroup } from "react-transition-group";
 import Skeleton from "@mui/material/Skeleton";
 import InnerBanner from "@/components/banners/InnerBanner";
 import DivisionsPanel from "@/components/divisions/DivisionsPanel";
-import LazyLoad from "react-lazy-load";
 const DynamicDownloadProfileSec = dynamic(
   () => import("@/components/downloadProfile"),
   {

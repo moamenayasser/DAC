@@ -9,7 +9,6 @@ import ListItemButton from "@mui/material/ListItemButton";
 // Components
 import NextActiveLink from "@/components/NextActiveLink";
 import useResources from "@/hooks/useResources";
-
 const LinksWrapperStyle = styled("li")(({ theme, trigger }) => ({
   position: "relative",
   "& > a": {
@@ -21,10 +20,13 @@ const LinksWrapperStyle = styled("li")(({ theme, trigger }) => ({
     width: "fit-content",
     justifyContent: "center",
     textTransform: "uppercase",
-    fontSize: "1rem",
+    fontSize: "0.85rem",
     fontWeight: 300,
     transition: "all 0.2s linear",
     color: "#fff",
+    [theme.breakpoints.up("lg")]: {
+      fontSize: "1rem",
+    },
     "&:focus": {
       backgroundColor: "unset",
     },
@@ -47,7 +49,7 @@ const LinksWrapperStyle = styled("li")(({ theme, trigger }) => ({
     },
   },
   "& .link": {
-    fontSize: "1rem",
+    fontSize: "0.85rem",
     textTransform: "uppercase",
     lineHeight: 1.75,
     height: 40,
@@ -58,6 +60,9 @@ const LinksWrapperStyle = styled("li")(({ theme, trigger }) => ({
     alignItems: "center",
     justifyContent: "center",
     color: "#fff",
+    [theme.breakpoints.up("lg")]: {
+      fontSize: "1rem",
+    },
     "&:focus": {
       backgroundColor: "unset",
     },

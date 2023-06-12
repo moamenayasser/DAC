@@ -1,6 +1,5 @@
 // Internal Imports
 import { useState } from "react";
-import Image from "next/image";
 // MUI
 import { styled } from "@mui/material";
 import Grid from "@mui/material/Grid";
@@ -9,7 +8,6 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Modal from "@mui/material/Modal";
-import { splitSentence } from "@/utils";
 // Icons
 import CloseIcon from "@mui/icons-material/Close";
 import ZoomInIcon from "@mui/icons-material/ZoomIn";
@@ -167,7 +165,7 @@ console.log(chartData);
                       <NextImage
                         src={chartData?.WebImageURL}
                         alt="Organization Chart"
-                        width={700}
+                        width={2000}
                         height={1000}
                         style={{
                           width: "100%",

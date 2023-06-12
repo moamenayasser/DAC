@@ -1,6 +1,5 @@
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { styled } from "@mui/material/styles";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -8,64 +7,13 @@ import Button from "@mui/material/Button";
 import { SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper";
 import NextImage from "../NextImage";
-import { gil_en_title_font } from "@/utils/fonts";
 import CustomSwiper from "../swiper/CustomSwiper";
 import "swiper/css/pagination";
-import PlaceholderImg from "/public/images/placeholderDAC.webp";
 import useResources from "@/hooks/useResources";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { getYoutubeUrl } from "@/utils";
 
 const DynamicTabPanel = dynamic(() => import("./TabPanel"));
-
-const DescStyle = styled("div")(({ theme, locale }) => ({
-  marginBottom: 24,
-  "& .title": {
-    marginTop: 0,
-    marginBottom: theme.spacing(2),
-    fontSize: "calc(1.25rem + 0.25vw)",
-    fontWeight: 400,
-    fontFamily:
-      locale === "ar" ? "inherit" : gil_en_title_font.style.fontFamily,
-  },
-  "& .desc": {
-    padding: 0,
-    margin: 0,
-    listStyle: "none",
-    position: "relative",
-    "& .desc-item": {
-      display: "flex",
-      justifyContent: "flex-start",
-      alignItems: "center",
-      position: "relative",
-      width: "100%",
-      gap: theme.spacing(1),
-      "& .icon": {
-        color: "rgba(0, 0, 0, 0.54)",
-        flexShrink: 0,
-        display: "inline-flex",
-        minWidth: 20,
-        "& svg": {
-          userSelect: "none",
-          width: "1em",
-          height: "1em",
-          display: "inline-block",
-          fill: "currentcolor",
-          flexShrink: 0,
-          transition: "fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
-          fontSize: "1.5rem",
-          color: theme.palette.secondary.main,
-        },
-      },
-      "& .info": {
-        flex: "1 1 auto",
-        minWidth: 0,
-        marginTop: theme.spacing(0.5),
-        marginBottom: theme.spacing(0.5),
-      },
-    },
-  },
-}));
 
 const options = {
   speed: 1000,
@@ -118,7 +66,6 @@ const DivisionsPanel = (props) => {
     (el) => el.CategoryUniqueName === item.UniqueName
   );
 
-
   return (
     <DynamicTabPanel value={value} index={index}>
       <Container>
@@ -128,7 +75,7 @@ const DivisionsPanel = (props) => {
               src={itemPrimaryImg[0]?.ActualImage}
               alt={itemPrimaryImg[0]?.Name}
               width={150}
-              height={80}
+              height={95}
               placeholder="blur"
               style={{
                 objectFit: "cover",
@@ -175,6 +122,7 @@ const DivisionsPanel = (props) => {
                 mt={8}
                 mb={5}
                 component={Link}
+                target="_blank"
                 href={itemLinkPrima.URL}
                 style={{
                   marginRight: "5px",
@@ -195,7 +143,19 @@ const DivisionsPanel = (props) => {
                 {useResources("viewProjects")}
               </Button>
             )}
-            {itemLinkFeatured?.URL &&
+            {AllitemBottons.length === 0 && (
+              <Button
+                variant="standard"
+                color="secondary"
+                mt={8}
+                mb={5}
+                component={Link}
+                href={`/projects?active=${item.UniqueName}`}
+              >
+                {itemLinkFeatured?.Name}
+              </Button>
+            )}
+            {/* {itemLinkFeatured?.URL &&
               itemLinkFeatured?.URL !== "#" &&
               AllitemBottons.length === 0 && (
                 <Button
@@ -208,7 +168,7 @@ const DivisionsPanel = (props) => {
                 >
                   {itemLinkFeatured?.Name}
                 </Button>
-              )}
+              )} */}
           </Grid>
 
           <Grid item xs={12} md={6}>
@@ -228,13 +188,14 @@ const DivisionsPanel = (props) => {
                   </SwiperSlide>
                 ))}
               </CustomSwiper>
-            ) :
+            ) : (
               itemVideo?.YoutubeLink && (
                 <SwiperSlide
                   key={index}
                   style={{ position: "relative", height: 400 }}
                 >
                   <iframe
+                    style={{ maxWidth: "100%" }}
                     width="560"
                     height="100%"
                     src={getYoutubeUrl(itemVideo?.YoutubeLink)}
@@ -242,11 +203,9 @@ const DivisionsPanel = (props) => {
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen
                   ></iframe>
-
                 </SwiperSlide>
               )
-            }
-
+            )}
           </Grid>
         </Grid>
       </Container>

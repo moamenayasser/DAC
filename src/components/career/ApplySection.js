@@ -18,10 +18,9 @@ const ApplySection = () => {
 
   return (
     <Box pt={7} pb={7} bgcolor="#f8f8f8" className="multi" position="relative">
-      <Container fixed sx={{ maxWidth:{md: "74%" }}} justifyContent="center">        
-
-        <Grid container spacing={3} >
-          <Grid item xs={12} position="relative" >
+      <Container fixed sx={{ maxWidth: { md: "74%" } }}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} position="relative">
             <div className="section-title">
               <Typography
                 variant="h4"
@@ -32,7 +31,6 @@ const ApplySection = () => {
               >
                 {useResources("applyNow")}
               </Typography>
-            
             </div>
           </Grid>
         </Grid>

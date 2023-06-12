@@ -489,5 +489,5 @@ a {
 }
 
 .black svg {
-  fill: #000;
+  fill: #000 !important;
 }

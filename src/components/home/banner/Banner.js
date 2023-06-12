@@ -13,6 +13,7 @@ const SlideItemWrapper = styled(SwiperSlide)(({ theme }) => ({
   justifyContent: "center",
   alignItems: "center",
   overflow: "hidden",
+  backgroundColor:"#000",
   [theme.breakpoints.up("md")]: {
     height: "100vh",
   },

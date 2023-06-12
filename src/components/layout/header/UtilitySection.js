@@ -36,7 +36,7 @@ const UtilitySection = (props) => {
 
   return (
     <Stack direction="row" alignItems="center" gap={2}>
-      <Box display={{ xs: "none", md: "flex" }} gap={2}>
+      <Box display={{ xs: "none", md: "flex" }} gap={1}>
         <SocialItems socialIcons={socialMedia} />
       </Box>
       <LangSwitch sx={{ display: { xs: "none", md: "flex" }, color: "#fff" }} locale={locale} />
