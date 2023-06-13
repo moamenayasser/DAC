@@ -163,7 +163,7 @@ export async function getServerSideProps({ locale, resolvedUrl, req, query }) {
 
   const urls = [
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/Banner/${process.env.COUNTRY_CODE}/ProjectsPageBanner/${locale}`,
-    `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/AdvancedContent/${process.env.COUNTRY_CODE}/Projects/${locale}/Content/${slug}`,
+    `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/AdvancedContent/${process.env.COUNTRY_CODE}/projects/${locale}/Content/${slug}`,
   ];
 
   try {

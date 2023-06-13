@@ -298,12 +298,17 @@ const ApplyForm = () => {
               fullWidth
               sx={{
                 border: (theme) => `2px solid ${theme.palette.secondary.main}`,
+                "&:hover span": { color: "#000" },
               }}
             >
               <Typography
                 truncate={1}
                 variant="button"
-                sx={{ fontFamily: "acumin_en_font", color:"#fff","&:hover":{color:"#000"} }}
+                sx={{
+                  fontFamily: "acumin_en_font",
+                  color: "#fff",
+                  "&:hover": { color: "#000" },
+                }}
               >
                 {formValues.cvFile
                   ? `${formValues.cvFile?.name} - uploaded`

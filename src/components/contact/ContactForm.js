@@ -48,7 +48,7 @@ const initialErrors = {
   },
 };
 
-const ContactForm = ({locale}) => {
+const ContactForm = ({ locale }) => {
   const [formValues, setFormValues] = useState(initialValues);
   const [errors, setErrors] = useState(initialErrors);
   const [isSubmit, setIsSubmit] = useState(false);
@@ -353,7 +353,12 @@ const ContactForm = ({locale}) => {
                 "& .MuiInputBase-root": {
                   backgroundColor: "transparent",
                   "&:hover": { backgroundColor: "transparent" },
-                  
+                  "& .MuiInput-input": {
+                    paddingLeft: "10px",
+                    fontSize: "14px",
+                    textTransform: "capitalize",
+                    height: "1.75em",
+                  },
                 },
               }}
               inputProps={{ className: "blackoutline" }}

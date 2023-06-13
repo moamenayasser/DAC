@@ -19,7 +19,7 @@ const InnerPrevNext = (props) => {
           alignItems: "center",
           justifyContent: "space-between",
         },
-        "& a:hover": { color: "#d72828" },
+        "& a:hover": { color: "#777" },
         "& a:hover >svg": { padding: "3px" },
       }}
     >

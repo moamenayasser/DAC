@@ -11,7 +11,6 @@ import ProjectItem from "@/components/items/ProjectItem";
 const ProjectsSlider = ({ data, locale }) => {
   const [loaded, setLoaded] = useState(false);
 
- console.log(data)
 
   const options = {
     loop: data?.length > 3,

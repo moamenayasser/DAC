@@ -118,8 +118,8 @@ export const getServerSideProps = async ({ locale, resolvedUrl, req }) => {
     // `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/Section/${process.env.COUNTRY_CODE}/${locale}/WhoDac`,
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/AdvancedContent/${process.env.COUNTRY_CODE}/whodac/${locale}/Category`,
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/AdvancedContent/${process.env.COUNTRY_CODE}/whodac/${locale}/Category/whoweare/Content`,
-    `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/AdvancedContent/${process.env.COUNTRY_CODE}/divisions/${locale}/Content`,
-    // `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/AdvancedContent/${process.env.COUNTRY_CODE}/projects/${locale}/Category`,
+    // `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/AdvancedContent/${process.env.COUNTRY_CODE}/divisions/${locale}/Content`,
+    `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/AdvancedContent/${process.env.COUNTRY_CODE}/projects/${locale}/Category`,
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/AdvancedContent/${process.env.COUNTRY_CODE}/Projects/${locale}/ContentFeatured/3`,
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/AdvancedContent/${process.env.COUNTRY_CODE}/Clients/${locale}/Content`,
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/Section/${process.env.COUNTRY_CODE}/${locale}/contactimage`,
@@ -148,7 +148,7 @@ export const getServerSideProps = async ({ locale, resolvedUrl, req }) => {
 
         return res.json();
       })
-      );
+    );
 
     return {
       props: {

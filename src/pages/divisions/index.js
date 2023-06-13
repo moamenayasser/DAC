@@ -128,7 +128,7 @@ const Divisions = (props) => {
           <div>
             <TransitionGroup>
               {allDivisionsContent?.map((item, index) => (
-                <DivisionsPanel
+                <DivisionsPanel 
                   key={index}
                   index={index}
                   item={item}
@@ -231,7 +231,7 @@ export const getServerSideProps = async (ctx) => {
     );
 
     const InnerDivisionContent = InnerDivision?.map((item) => item.Results);
-    console.log("first"), InnerDivisionContent;
+    // console.log("first"), InnerDivisionContent;
     return {
       props: {
         bannerData: bannerData[0] || {},

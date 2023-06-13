@@ -25,7 +25,7 @@ const DivBox = styled("div")(({ theme }) => ({
   },
   "& .MuiGrid-container": {
     [theme.breakpoints.down("md")]: {
-      paddingTop:"30px"
+      paddingTop: "30px",
       // flexDirection: "column-reverse",
     },
   },
@@ -44,6 +44,7 @@ const DivBox = styled("div")(({ theme }) => ({
   },
 }));
 const DivSec = ({ data }) => {
+  const itemsNum = data.filter((item) => item).slice(0, 8);
   return (
     <>
       <DivBox>
@@ -79,7 +80,8 @@ const DivSec = ({ data }) => {
                 {useResources("divisionsDesc")}
               </Typography>
             </Grid>
-            {data?.map((item, index) => (
+
+            {itemsNum?.map((item, index) => (
               <Grid item sm={6} md={2} position="relative" key={index}>
                 {/* <Link href="#"> */}
                 <Link

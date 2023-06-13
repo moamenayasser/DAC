@@ -39,7 +39,6 @@ const DownloadProfileSec = ({ data, popData }) => {
           display="flex"
           alignItems="center"
           justifyContent="center"
-          data-aos="fade-up"
         >
           <Grid item xs={12} md={10} position="relative">
             <div className="section-title">

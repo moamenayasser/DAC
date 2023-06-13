@@ -222,7 +222,11 @@ const globalOptions = {
           top: "-2px !important",
 
           "&.Mui-focused" :{
-            top:"8px !important"
+            top:"20px !important"
+          }
+          ,
+          "&.MuiFormLabel-filled" :{
+            top:"20px !important"
           }
           
         },
