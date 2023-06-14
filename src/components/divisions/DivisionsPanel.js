@@ -143,19 +143,19 @@ const DivisionsPanel = (props) => {
                 {useResources("viewProjects")}
               </Button>
             )}
-            {AllitemBottons.length === 0 &&
-              itemLinkFeatured?.URL &&(
-                <Button
-                  variant="standard"
-                  color="secondary"
-                  mt={8}
-                  mb={5}
-                  component={Link}
-                  href={`/projects?active=${item.UniqueName}`}
-                >
-                  {itemLinkFeatured?.Name}
-                </Button>
-              )}
+            {/* all btns */}
+            {AllitemBottons.length === 0 && itemLinkFeatured?.URL && (
+              <Button
+                variant="standard"
+                color="secondary"
+                mt={8}
+                mb={5}
+                component={Link}
+                href={`/projects?active=${item.UniqueName}`}
+              >
+                {itemLinkFeatured?.Name}
+              </Button>
+            )}
             {/* {itemLinkFeatured?.URL &&
               itemLinkFeatured?.URL !== "#" &&
               AllitemBottons.length === 0 && (
