@@ -375,6 +375,10 @@ const ContactForm = ({ locale }) => {
               helperText={errors.services.required}
               required
               sx={{
+                "& .MuiSelect-select": {
+                  lineHeight: "2 !important",
+                  padding: "5px !important",
+                },
                 "& .MuiInputBase-root": {
                   backgroundColor: "transparent",
                   "&:hover": { backgroundColor: "transparent" },
