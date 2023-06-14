@@ -1,5 +1,5 @@
 // Internal Imports
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // MUI
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
@@ -54,6 +54,31 @@ const ContactForm = ({ locale }) => {
   const [isSubmit, setIsSubmit] = useState(false);
   const [showSnack, setShowSnack] = useState(false);
   const [serverError, setServerError] = useState(false);
+
+  useEffect(() => {
+    setErrors({
+      firstName: {
+        required: "",
+      },
+      email: {
+        required: "",
+        pattern: "",
+      },
+      phone: {
+        required: "",
+        pattern: "",
+      },
+      subject: {
+        required: "",
+      },
+      services: {
+        required: "",
+      },
+      message: {
+        required: "",
+      },
+    });
+  }, []);
 
   const { data: DivisionsData } = useDivisions(locale);
   const DivisionData = DivisionsData?.map((item) => ({
@@ -364,11 +389,15 @@ const ContactForm = ({ locale }) => {
               inputProps={{ className: "blackoutline" }}
               InputLabelProps={{ className: "black top" }}
             >
-              {DivisionData?.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
+              {DivisionData ? (
+                DivisionData?.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))
+              ) : (
+                <MenuItem>No Items Yet</MenuItem>
+              )}
             </TextField>
           </Grid>
 
