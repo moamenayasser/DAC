@@ -37,9 +37,10 @@ const DivisionsPanel = (props) => {
   const { value, index, item, locale, itemContent } = props;
 
   // Get the primary image
-  const itemPrimaryImg = item?.AdvancedCategoryMedia?.filter(
+  const itemPrimaryImg = item?.AdvancedCategoryMedia?.find(
     (el) => (el.TypeName === "Image" || el.TypeName === "Banner") && el.Prima
   );
+
   // Get the gallery images
   const itemGallery = item?.AdvancedCategoryMedia?.filter(
     (el) =>
@@ -47,14 +48,14 @@ const DivisionsPanel = (props) => {
       !el.Prima &&
       el.Featured
   );
-  // Get the (View Website) link
+  // Get the (View Projects) link
   const itemLinkFeatured = item?.AdvancedCategoryMedia?.find(
     (el) => el.TypeName === "Link" && !el.Prima && el.Featured
   );
   const itemVideo = item?.AdvancedCategoryMedia?.find(
     (el) => el.TypeName === "YoutubeLink" && el.Prima
   );
-
+  // Get the (View Website) link
   const itemLinkPrima = item?.AdvancedCategoryMedia?.find(
     (el) => el.TypeName === "Link" && el.Prima && !el.Featured
   );
@@ -72,8 +73,8 @@ const DivisionsPanel = (props) => {
         <Grid container spacing={{ xs: 2, md: 3 }} justifyContent="center">
           <Grid item xs={12} md={6}>
             <NextImage
-              src={itemPrimaryImg[0]?.ActualImage}
-              alt={itemPrimaryImg[0]?.Name}
+              src={itemPrimaryImg?.ActualImage}
+              alt={itemPrimaryImg?.Name}
               width={150}
               height={95}
               placeholder="blur"
@@ -115,47 +116,48 @@ const DivisionsPanel = (props) => {
                 {itemDocument?.Name}
               </Link>
             )}
-            {itemLinkPrima && (
-              <Button
-                variant="standard"
-                color="secondary"
-                mt={8}
-                mb={5}
-                component={Link}
-                target="_blank"
-                href={itemLinkPrima.URL}
-                style={{
-                  marginRight: "5px",
-                }}
-              >
-                {itemLinkPrima?.Name}
-              </Button>
-            )}
-            {AllitemBottons.length !== 0 && (
-              <Button
-                variant="standard"
-                color="secondary"
-                mt={8}
-                mb={5}
-                component={Link}
-                href={`/projects?active=${item.UniqueName}`}
-              >
-                {useResources("viewProjects")}
-              </Button>
-            )}
-            {/* all btns */}
-            {AllitemBottons.length === 0 && itemLinkFeatured?.URL && (
-              <Button
-                variant="standard"
-                color="secondary"
-                mt={8}
-                mb={5}
-                component={Link}
-                href={`/projects?active=${item.UniqueName}`}
-              >
-                {itemLinkFeatured?.Name}
-              </Button>
-            )}
+            <div style={{ marginTop: "1rem" }}>
+              {itemLinkPrima && (
+                <Button
+                  variant="standard"
+                  color="secondary"
+                  mt={8}
+                  mb={5}
+                  component={Link}
+                  target="_blank"
+                  href={itemLinkPrima.URL}
+                  style={{
+                    marginRight: "5px",
+                  }}
+                >
+                  {itemLinkPrima?.Name}
+                </Button>
+              )}
+              {AllitemBottons.length !== 0 && (
+                <Button
+                  variant="standard"
+                  color="secondary"
+                  mt={8}
+                  mb={5}
+                  component={Link}
+                  href={`/projects?active=${item.UniqueName}`}
+                >
+                  {useResources("viewProjects")}
+                </Button>
+              )}
+              {AllitemBottons.length === 0 && itemLinkFeatured?.URL && (
+                <Button
+                  variant="standard"
+                  color="secondary"
+                  mt={8}
+                  mb={5}
+                  component={Link}
+                  href={`/projects?active=${item.UniqueName}`}
+                >
+                  {itemLinkFeatured?.Name}
+                </Button>
+              )}
+            </div>
             {/* {itemLinkFeatured?.URL &&
               itemLinkFeatured?.URL !== "#" &&
               AllitemBottons.length === 0 && (
