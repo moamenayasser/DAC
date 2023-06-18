@@ -13,8 +13,6 @@ import FaxOutlinedIcon from "@mui/icons-material/FaxOutlined";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import useResources from "@/hooks/useResources";
 
-
-
 const CardBox = styled("div")(({ theme }) => ({
   position: "relative",
   height: "100%",
@@ -29,9 +27,8 @@ const CardBox = styled("div")(({ theme }) => ({
     marginRight: 10,
     width: "25px",
     height: "25px",
-    color: "#fff"
+    color: "#fff",
   },
-
 }));
 
 const ContactList = styled(List)(({ theme }) => ({
@@ -90,13 +87,9 @@ const ContactItem = ({ item }) => {
   useEffect(() => setIsLoading(false), []);
 
   return (
-    <CardBox >
-      <Typography
-        component="h4"
-        variant="h6"
-        textTransform="capitalize"
-      >
-        {useResources("reachus")}
+    <CardBox>
+      <Typography component="h4" variant="h6" textTransform="capitalize">
+        {useResources("reachUs")}
         {/* {item?.Branch?.toLowerCase()} */}
       </Typography>
 
@@ -164,7 +157,6 @@ const ContactItem = ({ item }) => {
         )}
       </ContactList>
     </CardBox>
-
   );
 };
 
