@@ -39,6 +39,10 @@ const initialErrors = {
 };
 
 const DwnloadForm = ({ data, handleClose }) => {
+
+  const documentLink = data?.AdvancedCategoryDocument?.find(
+    (item) => item.Prima
+  );
   const [formValues, setFormValues] = useState(initialValues);
   const [errors, setErrors] = useState(initialErrors);
 
@@ -139,7 +143,7 @@ const DwnloadForm = ({ data, handleClose }) => {
                 marginTop="10px"
                 textTransform="capitalize"
               >
-                {data?.Title}
+                 {data?.Name}
               </Typography>
               <Typography
                 variant="p"
@@ -147,7 +151,7 @@ const DwnloadForm = ({ data, handleClose }) => {
                 marginBottom="20px"
                 marginTop="10px"
               >
-                {data?.ShortDescription}
+                {data?.DescriptionShort}
               </Typography>
             </div>
 
@@ -257,27 +261,32 @@ const DwnloadForm = ({ data, handleClose }) => {
                 </FormHelperText>
               )}
             </div>
-            <Stack
-              direction="row"
-              align="center"
-              alignItems="center"
-              justifyContent="center"
-              sx={{ margin: "40px" }}
-            >
-              <Button
-                href={data.Link1 || "/images/TAAM Profile May 2023 Web-min.pdf"}
-                variant="outlined"
-                download
-                style={{ display: "none" }}
-                ref={downloadRef}
-              >
-                {data.Link1Name || useResources("download")}
-              </Button>
 
-              <Button variant="outlined" type="submit">
-                {data.Link1Name}
-              </Button>
-            </Stack>
+            {documentLink && (
+              <Stack
+                direction="row"
+                align="center"
+                alignItems="center"
+                justifyContent="center"
+                sx={{ margin: "40px" }}
+              >
+                <Button
+                  href={documentLink.URL}
+                  variant="outlined"
+                  download
+                  style={{ display: "none" }}
+                  ref={downloadRef}
+                  target="_blank"
+                >
+                  {documentLink.Name}
+                </Button>
+
+                <Button variant="outlined" type="submit">
+                  {documentLink.Name}
+                </Button>
+              </Stack>
+            )}
+          
           </BoxWrap>
         </Container>
       </Box>

@@ -105,7 +105,9 @@ export const getServerSideProps = async ({ locale, resolvedUrl, req }) => {
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/Testimonial/${process.env.COUNTRY_CODE}/${locale}`,
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/SEO/${locale}/Testimonials/Index`,
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/Section/${process.env.COUNTRY_CODE}/${locale}/companyprofile`,
-    `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/Section/${process.env.COUNTRY_CODE}/${locale}/downloadform`,
+    `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/AdvancedContent/${process.env.COUNTRY_CODE}/downloadProfileForm/${locale}/Category/checkoutourcompanyprofile`,
+
+    // `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/Section/${process.env.COUNTRY_CODE}/${locale}/downloadform`,
   ];
 
   try {
