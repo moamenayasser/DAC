@@ -53,10 +53,12 @@ const globalOptions = {
     },
     h5: {
       fontFamily: benton_en_font.style.fontFamily,
+      fontWeight:700,
     },
     h6: {
       fontFamily: benton_en_font.style.fontFamily,
     },
+    
   },
   components: {
     MuiTypography: {

@@ -1,18 +1,19 @@
-@font-face {
+/* @font-face {
   font-family: benton;
   src: local("benton"),
-    url("../../public/fonts/BentonSans-Bold.otf") format("opentype") tech(color-COLRv1)
+    url("../../public/fonts/BentonSans-Bold.otf") format("opentype");
+  
 }
 
 @font-face {
   font-family: acumin_en_font;
   src: local("acumin_en_font"),
-    url("../../public/fonts/AcuminVariableConcept.otf") format("opentype") tech(color-COLRv1)
-}
+    url("../../public/fonts/AcuminVariableConcept.otf") format("opentype") 
+} */
 
-strong, p {
+/* strong, p {
   font-family: acumin_en_font !important;
-}
+} */
 
 * {
   outline: none;
@@ -20,7 +21,7 @@ strong, p {
 }
 
 h3 {
-  font-family: benton;
+  /* font-family: benton; */
   font-size: 20px;
 }
 
@@ -262,7 +263,8 @@ a {
 
 .section-title h2 {
   text-transform: uppercase;
-  font-family: 'acumin_en_font';
+  /* font-weight: 700; */
+  /* font-family: 'acumin_en_font'; */
 }
 
 /* .swiper-pagination {

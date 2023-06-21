@@ -26,7 +26,6 @@ const InfoSection = ({ data, content }) => {
               component="h5"
               marginBottom="5px"
               color="primary"
-              fontFamily="acumin_en_font"
             >
               {item.Name}
             </Typography>
