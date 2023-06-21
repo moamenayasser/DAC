@@ -125,6 +125,7 @@ export const getServerSideProps = async ({ locale, resolvedUrl, req }) => {
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/Section/${process.env.COUNTRY_CODE}/${locale}/taamcompanyorganizationchart`,
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/Section/${process.env.COUNTRY_CODE}/${locale}/chartimg`,
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/SEO/${locale}/About/Index`,
+    `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/ProjectConfiguration`,
   ];
 
   try {
@@ -139,6 +140,7 @@ export const getServerSideProps = async ({ locale, resolvedUrl, req }) => {
       { Results: organizationChart },
       { Results: chartimg },
       { Results: seoData },
+      { Results: projectConfig },
     ] = await Promise.all(
       urls.map(async (url) => {
         const res = await fetch(url, {
@@ -162,6 +164,7 @@ export const getServerSideProps = async ({ locale, resolvedUrl, req }) => {
         organizationChart: organizationChart || {},
         chartimg: chartimg || {},
         seoData: seoData || {},
+        projectConfig: projectConfig || {},
         absoluteUrl,
         locale,
       },

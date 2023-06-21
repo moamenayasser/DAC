@@ -6,6 +6,7 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import SlideInHeader from "./header/SlideInHeader";
 import Header from "./header/Header";
 import ScrollToTop from "./ScrollToTop";
+import { useData } from "@/hooks/useResources";
 
 const DynamicFooter = dynamic(
   () => import("@/components/layout/footer/Footer"),
@@ -25,89 +26,6 @@ const cloneProps = (trigger) => ({
   },
 });
 
-const headerLinks = [
-  {
-    id: 1,
-    label: "aboutUs",
-    href: "/about",
-    hasDropdown: false,
-    dropdownLinks: [],
-  },
-  {
-    id: 2,
-    label: "Divisions",
-    href: "/divisions",
-    hasDropdown: false,
-    dropdownLinks: [],
-  },
-  {
-    id: 3,
-    label: "caseStudies",
-    href: "",
-    hasDropdown: true,
-    dropdownLinks: [
-      {
-        id: 1,
-        label: "listOfProjects",
-        href: "/projects",
-        hasDropdown: false,
-        dropdownLinks: [],
-      },
-      {
-        id: 2,
-        label: "testimonials",
-        href: "/testimonials",
-        hasDropdown: false,
-        dropdownLinks: [],
-      },
-    ],
-  },
-
-  {
-    id: 4,
-    label: "mediaCenter",
-    href: "",
-    hasDropdown: true,
-    dropdownLinks: [
-      {
-        id: 1,
-        label: "pressReleases",
-        href: "/news",
-        hasDropdown: false,
-        dropdownLinks: [],
-      },
-      {
-        id: 2,
-        label: "blogs",
-        href: "/blogs",
-        hasDropdown: false,
-        dropdownLinks: [],
-      },
-      {
-        id: 3,
-        label: "faq",
-        href: "/faq",
-        hasDropdown: false,
-        dropdownLinks: [],
-      },
-    ],
-  },
-  {
-    id: 5,
-    label: "certificates",
-    href: "/certificates",
-    hasDropdown: false,
-    dropdownLinks: [],
-  },
-  {
-    id: 6,
-    label: "contactUs",
-    href: "/contact",
-    hasDropdown: false,
-    dropdownLinks: [],
-  },
-];
-
 const Layout = (props) => {
   const { locale, headerProps = cloneProps, customTrigger, children } = props;
 
@@ -116,6 +34,119 @@ const Layout = (props) => {
   useEffect(() => {
     setScrollToTopTriggerHeight(window.innerHeight);
   }, []);
+
+  const { webPages } = useData();
+
+  const headerLinks = [
+    {
+      id: 1,
+      label: "aboutUs",
+      href: "/about",
+      hasDropdown: false,
+      dropdownLinks: [],
+      status: webPages
+        ? webPages?.find((item) => item.ControlName === "About")?.Status
+        : false,
+    },
+    {
+      id: 2,
+      label: "Divisions",
+      href: "/divisions",
+      hasDropdown: false,
+      dropdownLinks: [],
+      status: webPages
+        ? webPages?.find((item) => item.ControlName === "Divisions")?.Status
+        : false,
+    },
+    {
+      id: 3,
+      label: "caseStudies",
+      href: "",
+      hasDropdown: true,
+      dropdownLinks: [
+        {
+          id: 1,
+          label: "listOfProjects",
+          href: "/projects",
+          hasDropdown: false,
+          dropdownLinks: [],
+          status: webPages
+            ? webPages?.find((item) => item.ControlName === "Projects")?.Status
+            : false,
+        },
+        {
+          id: 2,
+          label: "testimonials",
+          href: "/testimonials",
+          hasDropdown: false,
+          dropdownLinks: [],
+          status: webPages
+            ? webPages?.find((item) => item.ControlName === "Testimonials")
+                ?.Status
+            : false,
+        },
+      ],
+    },
+
+    {
+      id: 4,
+      label: "mediaCenter",
+      href: "",
+      hasDropdown: true,
+      dropdownLinks: [
+        {
+          id: 1,
+          label: "pressReleases",
+          href: "/news",
+          hasDropdown: false,
+          dropdownLinks: [],
+          status: webPages
+            ? webPages?.find((item) => item.ControlName === "News")?.Status
+            : false,
+        },
+        {
+          id: 2,
+          label: "blogs",
+          href: "/blogs",
+          hasDropdown: false,
+          dropdownLinks: [],
+          status: webPages
+            ? webPages?.find((item) => item.ControlName === "Blogs")?.Status
+            : false,
+        },
+        {
+          id: 3,
+          label: "faq",
+          href: "/faq",
+          hasDropdown: false,
+          dropdownLinks: [],
+          status: webPages
+            ? webPages?.find((item) => item.ControlName === "FAQ")?.Status
+            : false,
+        },
+      ],
+    },
+    {
+      id: 5,
+      label: "certificates",
+      href: "/certificates",
+      hasDropdown: false,
+      dropdownLinks: [],
+      status: webPages
+        ? webPages?.find((item) => item.ControlName === "Certificates")?.Status
+        : false,
+    },
+    {
+      id: 6,
+      label: "contactUs",
+      href: "/contact",
+      hasDropdown: false,
+      dropdownLinks: [],
+      status: webPages
+        ? webPages?.find((item) => item.ControlName === "ContactUs")?.Status
+        : false,
+    },
+  ];
 
   const footerLinks = [
     {
@@ -127,36 +158,56 @@ const Layout = (props) => {
           useRes: true,
           title: "aboutUs",
           href: "/about",
+          status: webPages
+            ? webPages?.find((item) => item.ControlName === "About")?.Status
+            : false,
         },
         {
           id: 2,
           useRes: true,
           title: "projects",
           href: "/projects",
+          status: webPages
+            ? webPages?.find((item) => item.ControlName === "Projects")?.Status
+            : false,
         },
         {
           id: 3,
           useRes: true,
           title: "testimonials",
           href: "/testimonials",
+          status: webPages
+            ? webPages?.find((item) => item.ControlName === "Testimonials")
+                ?.Status
+            : false,
         },
         {
           id: 4,
           useRes: true,
           title: "news",
           href: "/news",
+          status: webPages
+            ? webPages?.find((item) => item.ControlName === "News")?.Status
+            : false,
         },
         {
           id: 5,
           useRes: true,
           title: "careers",
           href: "/careers",
+          status: webPages
+            ? webPages?.find((item) => item.ControlName === "Careers")?.Status
+            : false,
         },
         {
           id: 6,
           useRes: true,
           title: "certificates",
           href: "/certificates",
+          status: webPages
+            ? webPages?.find((item) => item.ControlName === "Certificates")
+                ?.Status
+            : false,
         },
       ],
     },

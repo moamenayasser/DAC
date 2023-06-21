@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import NextNProgress from "nextjs-progressbar";
 import AOS from "aos";
+import parse from "html-react-parser";
 import MuiTheme from "@/utils/MuiTheme";
 import Layout from "@/components/layout/Layout";
 import "aos/dist/aos.css";
 import "@/styles/globals.css";
 import dynamic from "next/dynamic";
+import Head from "next/head";
 
 const AnimatedCursor = dynamic(() => import("react-animated-cursor"), {
   ssr: false,
@@ -20,6 +22,10 @@ const App = ({ Component, pageProps }) => {
 
   return (
     <>
+      <Head>
+        {pageProps.projectConfig?.Header &&
+          parse(pageProps.projectConfig?.Header)}
+      </Head>
       <MuiTheme locale={locale}>
         <NextNProgress
           color="#fff"
@@ -54,6 +60,9 @@ const App = ({ Component, pageProps }) => {
         </Layout>
        
       </MuiTheme>
+
+      {pageProps.projectConfig?.Footer &&
+        parse(pageProps.projectConfig?.Footer)}
 
       {/* <Script
         src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"

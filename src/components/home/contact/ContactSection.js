@@ -7,7 +7,7 @@ import { Container, Typography } from "@mui/material";
 import useResources from "@/hooks/useResources";
 import NextImage from "@/components/NextImage";
 
-const ContactSection = ({ data }) => {
+const ContactSection = ({ data, projectConfig }) => {
   return (
     <div className="wrapper">
       <Grid container sx={{ position: "relative", zIndex: 1 }}>
@@ -63,7 +63,7 @@ const ContactSection = ({ data }) => {
                 </Typography>
               </div>
 
-              <ContactForm />
+              <ContactForm projectConfig={projectConfig}/>
             </Container>
           </div>
         </Grid>

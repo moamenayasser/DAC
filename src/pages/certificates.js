@@ -101,6 +101,7 @@ export const getServerSideProps = async ({ locale, resolvedUrl, req }) => {
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/AdvancedContent/${process.env.COUNTRY_CODE}/Certificate/${locale}/Content`,
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/AdvancedContent/${process.env.COUNTRY_CODE}/Certificate/${locale}/Category/certificates`,
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/SEO/${locale}/Certificates/Index`,
+    `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/ProjectConfiguration`,
   ];
 
   try {
@@ -109,6 +110,7 @@ export const getServerSideProps = async ({ locale, resolvedUrl, req }) => {
       { Results: certificatesData },
       { Results: allcertificatesData },
       { Results: seoData },
+      { Results: projectConfig },
     ] = await Promise.all(
       urls.map(async (url) => {
         const res = await fetch(url, {
@@ -126,6 +128,7 @@ export const getServerSideProps = async ({ locale, resolvedUrl, req }) => {
         certificatesData: certificatesData || [],
         allcertificatesData: allcertificatesData || {},
         seoData: seoData || {},
+        projectConfig: projectConfig || {},
         absoluteUrl,
         locale,
       },

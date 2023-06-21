@@ -110,6 +110,7 @@ const MobileDrawer = (props) => {
                               textTransform: "capitalize",
                               fontSize: "0.85rem",
                             }}
+                            sx={{ display: !item.status && "none !important" }}
                           >
                             <ListItemButton
                               component={NextActiveLink}
@@ -130,6 +131,7 @@ const MobileDrawer = (props) => {
                     sx={{
                       textTransform: "capitalize",
                       "&.active": { color: "secondary.main" },
+                      display: !item.status && "none !important",
                     }}
                     onClick={toggleDrawer}
                   >

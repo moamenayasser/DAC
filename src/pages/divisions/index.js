@@ -172,6 +172,7 @@ export const getServerSideProps = async (ctx) => {
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/Section/${process.env.COUNTRY_CODE}/${locale}/companyprofile`,
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/AdvancedContent/${process.env.COUNTRY_CODE}/downloadProfileForm/${locale}/Category/checkoutourcompanyprofile`,
     // `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/Section/${process.env.COUNTRY_CODE}/${locale}/downloadform`,
+    `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/ProjectConfiguration`,
   ];
 
   try {
@@ -182,6 +183,7 @@ export const getServerSideProps = async (ctx) => {
       { Results: clientsData },
       { Results: downloadprofile },
       { Results: downloadform },
+      { Results: projectConfig },
     ] = await Promise.all(
       urls.map(async (url) => {
         const res = await fetch(url, {
@@ -243,6 +245,7 @@ export const getServerSideProps = async (ctx) => {
         clientsData: clientsData || [],
         downloadProfileData: downloadprofile || {},
         downloadformData: downloadform || {},
+        projectConfig: projectConfig || {},
         absoluteUrl,
         locale,
       },

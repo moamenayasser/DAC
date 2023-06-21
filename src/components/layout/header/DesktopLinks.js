@@ -154,7 +154,9 @@ const DesktopLinks = ({ headerLinks, trigger }) => {
               <span className="link">{useResources(item.label)}</span>
               <List className="dropdown-menu">
                 {item?.dropdownLinks?.map((item) => (
-                  <ListItem key={item.id} disablePadding>
+                  <ListItem key={item.id} disablePadding 
+                  sx={{ display: !item.status && "none !important" }}
+                  >
                     <ListItemButton component={NextActiveLink} href={item.href}>
                       {useResources(item.label)}
                     </ListItemButton>
@@ -163,7 +165,9 @@ const DesktopLinks = ({ headerLinks, trigger }) => {
               </List>
             </>
           ) : (
-            <Button href={item.href} component={NextActiveLink} color="inherit">
+            <Button href={item.href} component={NextActiveLink} color="inherit"    
+             sx={{ display: !item.status && "none !important" }}
+            >
               {useResources(item.label) ? (
                 useResources(item.label)
               ) : (

@@ -10,8 +10,6 @@ import EmptyItem from "@/components/projects/EmptyItem";
 import ProjectItem from "@/components/items/ProjectItem";
 import TitleItems from "@/components/projects/TitleItems";
 import ProjectVideoIframe from "@/components/projects/ProjectVideoIframe";
-import useResources from "@/hooks/useResources";
-import { Typography } from "@mui/material";
 
 const DynamicProjectsTabs = dynamic(
   () => import("@/components/projects/ProjectsTabs"),
@@ -81,8 +79,7 @@ const Projects = (props) => {
   }, [active]);
 
   const crumbs = [{ title: bannerData?.Title, href: "" }];
-const ViewVideosLable = useResources("viewOurVideo")
-const ViewProjectsLable = useResources("viewOurProjects")
+
   return (
     <>
       <Head>
@@ -137,62 +134,28 @@ const ViewProjectsLable = useResources("viewOurProjects")
           />
         )}
 
-        <div style={{paddingBottom: 80 }}>
+        <div style={{ paddingTop: 80, paddingBottom: 80 }}>
           <Container>
-            {projectsData.length !== 0 && (
-              <Grid container spacing={4} mt={1}>
-                <Grid item xs={12}>
-                  <Typography
-                    variant="h4"
-                    component="h2"
-                    mb={2}
-                    color="primary"
-                    fontFamily="acumin_en_font"
-                    style={{
-                      textTransform: "capitalize",
-                      paddingTop: "50px",
-                      marginBottom: "10px",
-                    }}
-                  >
-                    {ViewProjectsLable}
-                  </Typography>
-                </Grid>
-                {projectsData?.map((item, index) => (
-                  <Grid key={index} item sm={6} md={6}>
+            <Grid container spacing={4}>
+              {projectsData.length !== 0 &&
+                projectsData?.map((item, index) => (
+                  <Grid key={index} item sm={6} md={4}>
                     <ProjectItem item={item} />
                   </Grid>
                 ))}
-              </Grid>
-            )}
-            {youtubeLinks.length !== 0  && (
-              <Grid container spacing={4} mt={1}>
-                <Grid item xs={12}>
-                  <Typography
-                    variant="h4"
-                    component="h2"
-                    mb={2}
-                    color="primary"
-                    fontFamily="acumin_en_font"
-                    style={{
-                      textTransform: "capitalize",
-                      paddingTop: "50px",
-                      marginBottom: "10px",
-                    }}
-                  >
-                    {ViewVideosLable}
-                  </Typography>
-                </Grid>
-                {youtubeLinks?.map((item, index) => (
+
+              {youtubeLinks &&
+                youtubeLinks?.map((item, index) => (
                   <Grid key={index} item sm={6} md={6}>
                     <ProjectVideoIframe key={index} item={item} />
                   </Grid>
                 ))}
-              </Grid>
-            )}
+            </Grid>
+
             {projectsData.length === 0 &&
               youtubeLinks.length === 0 &&
               itemLink && (
-                <Grid item sm={6} md={6} mt={8}>
+                <Grid item sm={6} md={6}>
                   <TitleItems item={itemLink} />
                 </Grid>
               )}

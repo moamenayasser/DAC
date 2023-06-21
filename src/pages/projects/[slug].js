@@ -4,11 +4,8 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import InnerBanner from "@/components/banners/InnerBanner";
 import Gallery from "../../components/projects/GalleryInners";
 import NextImage from "@/components/NextImage";
-import { InsertEmoticon } from "@mui/icons-material";
-import { Skeleton } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 const DynamicInnerPrevNext = dynamic(
@@ -31,23 +28,19 @@ const BoxWrapper = styled(Box)(() => ({
     zIndex: "-1",
   },
   "& img": {
-    width: "100%", height: "450px", objectFit: "cover"
+    width: "100%",
+    height: "450px",
+    objectFit: "cover",
   },
   "& .inner-list li": {
     listStyleType: "square",
     marginLeft: "15px",
     color: "#4d4d4f",
-    marginBottom: "5px"
-  }
+    marginBottom: "5px",
+  },
 }));
 const ProjectDetail = (props) => {
-  const { previous, next, bannerData, projectData, absoluteUrl, locale } =
-    props;
-
-  const crumbs = [
-    { title: bannerData?.Title, href: "/projects" },
-    { title: projectData?.Name, href: "" },
-  ];
+  const { previous, next, projectData, absoluteUrl, locale } = props;
 
   return (
     <>
@@ -74,7 +67,6 @@ const ProjectDetail = (props) => {
         <meta name="twitter:url" content={absoluteUrl} />
       </Head>
 
-
       <BoxWrapper flexGrow={1} pt={7} pb={7}>
         <Container>
           <Grid container spacing={3}>
@@ -93,7 +85,7 @@ const ProjectDetail = (props) => {
                   style={{
                     textTransform: "uppercase",
                     paddingTop: "20px",
-                    marginBottom: "10px"
+                    marginBottom: "10px",
                   }}
                 >
                   {projectData?.Name?.toLowerCase()}
@@ -109,7 +101,6 @@ const ProjectDetail = (props) => {
                     alt={projectData?.Name}
                     width={600}
                     height={400}
-
                   />
                 )}
               </div>
@@ -127,7 +118,7 @@ const ProjectDetail = (props) => {
                   style={{
                     textTransform: "capitalize",
                     paddingTop: "50px",
-                    marginBottom: "10px"
+                    marginBottom: "10px",
                   }}
                 >
                   {projectData?.DescriptionShort}
@@ -151,7 +142,6 @@ const ProjectDetail = (props) => {
           />
         </Container>
       </BoxWrapper>
-
     </>
   );
 };
@@ -164,20 +154,24 @@ export async function getServerSideProps({ locale, resolvedUrl, req, query }) {
   const urls = [
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/Banner/${process.env.COUNTRY_CODE}/ProjectsPageBanner/${locale}`,
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/AdvancedContent/${process.env.COUNTRY_CODE}/projects/${locale}/Content/${slug}`,
+    `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/ProjectConfiguration`,
   ];
 
   try {
-    const [{ Results: bannerData }, { Results: projectData }] =
-      await Promise.all(
-        urls.map(async (url) => {
-          const res = await fetch(url, {
-            headers: {
-              Authorization: process.env.AUTHORIZATION,
-            },
-          });
-          return res.json();
-        })
-      );
+    const [
+      { Results: bannerData },
+      { Results: projectData },
+      { Results: projectConfig },
+    ] = await Promise.all(
+      urls.map(async (url) => {
+        const res = await fetch(url, {
+          headers: {
+            Authorization: process.env.AUTHORIZATION,
+          },
+        });
+        return res.json();
+      })
+    );
 
     if (!projectData.Status) {
       return {
@@ -211,6 +205,7 @@ export async function getServerSideProps({ locale, resolvedUrl, req, query }) {
         next: next || "",
         bannerData: bannerData[0] || {},
         projectData: projectData || {},
+        projectConfig: projectConfig || {},
         absoluteUrl,
         locale,
       },

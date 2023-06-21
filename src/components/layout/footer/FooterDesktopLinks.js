@@ -73,7 +73,8 @@ const FooterDesktopLinks = (props) => {
       <Collapse in={matches ? open : open === index} timeout="auto">
         <LinksWrapperStyle>
           {data?.links?.map((item) => (
-            <li key={item.id}>
+            <li key={item.id}  style={{ display: !item.status && "none !important" }}
+            >
               <Link href={item.href}>
                 {item.useRes ? useResources(item.title) : item.title}
               </Link>

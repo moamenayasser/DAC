@@ -25,7 +25,7 @@ const StyledIcon = styled(CloseIcon)({
   transition: "0.3s ease-in-out",
 });
 
-const DownloadProfileSec = ({ data, popData }) => {
+const DownloadProfileSec = ({ data, popData, projectConfig }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -83,7 +83,7 @@ const DownloadProfileSec = ({ data, popData }) => {
             margin="auto"
           >
             <StyledIcon onClick={handleClose} />
-            <DwnloadForm data={popData} handleClose={handleClose} />
+            <DwnloadForm data={popData} handleClose={handleClose} projectConfig={projectConfig}/>
           </Box>
         </Modal>
       </Container>

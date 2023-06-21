@@ -38,9 +38,11 @@ const Home = (props) => {
     clientsData,
     contactData,
     seoData,
+    projectConfig,
     absoluteUrl,
   } = props;
-  return (
+  
+    return (
     <>
       <Head>
         <title>{seoData?.PageTitle}</title>
@@ -94,7 +96,7 @@ const Home = (props) => {
 
         {contactData.length !== 0 && (
           <LazyLoad height={500} offset={100}>
-            <DynamicContactSection data={contactData} />
+            <DynamicContactSection data={contactData} projectConfig={projectConfig}/>
           </LazyLoad>
         )}
 
@@ -124,6 +126,8 @@ export const getServerSideProps = async ({ locale, resolvedUrl, req }) => {
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/AdvancedContent/${process.env.COUNTRY_CODE}/Clients/${locale}/Content`,
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/Section/${process.env.COUNTRY_CODE}/${locale}/contactimage`,
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/SEO/${locale}/Home/Index`,
+    `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/ProjectConfiguration`,
+
   ];
 
   try {
@@ -136,6 +140,7 @@ export const getServerSideProps = async ({ locale, resolvedUrl, req }) => {
       { Results: clientsData },
       { Results: contactData },
       { Results: seoData },
+      { Results: projectConfig },
     ] = await Promise.all(
       urls.map(async (url) => {
         const res = await fetch(url, {
@@ -160,6 +165,7 @@ export const getServerSideProps = async ({ locale, resolvedUrl, req }) => {
         clientsData: clientsData || [],
         contactData: contactData || {},
         seoData: seoData || {},
+        projectConfig: projectConfig || {},
         absoluteUrl,
         locale,
       },

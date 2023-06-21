@@ -16,6 +16,7 @@ export const useData = () => {
     resources: data?.Results?.ProjectResource,
     socialMedia: data?.Results?.SocialMedia,
     url,
+    webPages: data?.Results?.webPages,
   };
 };
 

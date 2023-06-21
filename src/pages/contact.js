@@ -17,7 +17,7 @@ const DynamicContactForm = dynamic(
 );
 
 const Contact = (props) => {
-  const { bannerData, contactData, seoData, absoluteUrl, locale } = props;
+  const { bannerData, contactData, seoData, projectConfig, absoluteUrl, locale } = props;
 
   const crumbs = [{ title: bannerData?.Title, href: "" }];
 
@@ -92,7 +92,7 @@ const Contact = (props) => {
               {useResources("contactus")}
               {/* {useResources("contactTitle")}{" "} */}
             </Typography>
-            {!isLoading && <DynamicContactForm locale={locale} />}
+            {!isLoading && <DynamicContactForm locale={locale} projectConfig={projectConfig} />}
           </Container>
         </div>
       </>
@@ -109,6 +109,8 @@ export const getServerSideProps = async ({ locale, resolvedUrl, req }) => {
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/Banner/${process.env.COUNTRY_CODE}/ContactPageBanner/${locale}`,
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/ContactInformation/${locale}`,
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/SEO/${locale}/ContactUs/Index`,
+    `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/ProjectConfiguration`,
+
   ];
 
   try {
@@ -116,6 +118,7 @@ export const getServerSideProps = async ({ locale, resolvedUrl, req }) => {
       { Results: bannerData },
       { Results: contactData },
       { Results: seoData },
+      { Results: projectConfig },
     ] = await Promise.all(
       urls.map(async (url) => {
         const res = await fetch(url, {
@@ -132,6 +135,7 @@ export const getServerSideProps = async ({ locale, resolvedUrl, req }) => {
         bannerData: bannerData[0] || {},
         contactData: contactData || {},
         seoData: seoData || {},
+        projectConfig: projectConfig || {},
         absoluteUrl,
         locale,
       },

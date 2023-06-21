@@ -1,5 +1,5 @@
 // Internal Imports
-import { useEffect, useState } from "react";
+import { useEffect, useState ,useRef} from "react";
 // MUI
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
@@ -7,11 +7,13 @@ import FormHelperText from "@mui/material/FormHelperText";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
+import ReCAPTCHA from "react-google-recaptcha";
 // Componetns
 import useResources from "@/hooks/useResources";
 import CustomSnackBar from "../CustomSnackBar";
 import { getClientHost } from "@/utils";
 import useDivisions from "@/hooks/useDivisions";
+
 
 const initialValues = {
   firstName: "",
@@ -23,6 +25,7 @@ const initialValues = {
   subject: "",
   services: "",
   message: "",
+  captcha: "",
 };
 
 const initialErrors = {
@@ -46,14 +49,27 @@ const initialErrors = {
   message: {
     required: "",
   },
+  captcha: {
+    required: "",
+  },
 };
 
-const ContactForm = ({ locale }) => {
+const ContactForm = ({ locale ,projectConfig }) => {
   const [formValues, setFormValues] = useState(initialValues);
   const [errors, setErrors] = useState(initialErrors);
   const [isSubmit, setIsSubmit] = useState(false);
   const [showSnack, setShowSnack] = useState(false);
   const [serverError, setServerError] = useState(false);
+
+  const captchaRef = useRef(null);
+  const handleCaptchaChange = () => {
+    const token = captchaRef.current.getValue();
+    if (token) {
+      setFormValues((prev) => ({ ...prev, captcha: token }));
+
+      validate({ captcha: token });
+    }
+  };
 
   useEffect(() => {
     setErrors({
@@ -77,8 +93,12 @@ const ContactForm = ({ locale }) => {
       message: {
         required: "",
       },
+      captcha: {
+        required: "",
+      },
     });
   }, []);
+
 
   const { data: DivisionsData } = useDivisions(locale);
   const DivisionData = DivisionsData?.map((item) => ({
@@ -146,6 +166,10 @@ const ContactForm = ({ locale }) => {
     "message" in fieldValues &&
       (temp.message.required = fieldValues.message ? "" : requiredField);
 
+        // Captcha
+    "captcha" in fieldValues &&
+    (temp.captcha.required = fieldValues.captcha ? "" : requiredField);
+
     setErrors({ ...temp });
 
     if (fieldValues !== initialValues) {
@@ -169,6 +193,7 @@ const ContactForm = ({ locale }) => {
       formdata.append("Phone", formValues.phone);
       formdata.append("Subject", formValues.subject);
       formdata.append("Message", customText);
+      formdata.append("GoogleCaptureClientKey", formValues.captcha);
       // formdata.append("Message", formValues.message);
       // formdata.append("CustomText", customText);
 
@@ -185,6 +210,8 @@ const ContactForm = ({ locale }) => {
           setFormValues(initialValues);
           setServerError(false);
           setShowSnack(true);
+          captchaRef.current.reset();
+
         }
       } catch (err) {
         console.error("From Error ", err);
@@ -422,6 +449,26 @@ const ContactForm = ({ locale }) => {
               InputLabelProps={{ className: "black" }}
             />
           </Grid>
+          {projectConfig.CaptchaClientKey && (
+            <Grid item xs={12}>
+              <ReCAPTCHA
+                sitekey={projectConfig.CaptchaClientKey}
+                ref={captchaRef}
+                onChange={handleCaptchaChange}
+              />
+              {errors.captcha.required && (
+                <FormHelperText
+                  style={{
+                    color: "#d32f2f",
+                    fontSize: "0.75rem",
+                    lineHeight: 1.2,
+                  }}
+                >
+                  {errors.captcha.required}
+                </FormHelperText>
+              )}
+            </Grid>
+          )}
         </Grid>
 
         <Grid container spacing={5} justifyContent="center" alignItems="center">

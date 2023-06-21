@@ -89,6 +89,7 @@ export const getServerSideProps = async ({ locale, resolvedUrl, req }) => {
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/Banner/${process.env.COUNTRY_CODE}/FAQPageBanner/${locale}`,
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/FAQ/${process.env.COUNTRY_CODE}/${locale}`,
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/SEO/${locale}/FAQ/Index`,
+    `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/ProjectConfiguration`,
   ];
 
   try {
@@ -96,6 +97,7 @@ export const getServerSideProps = async ({ locale, resolvedUrl, req }) => {
       { Results: bannerData },
       { Results: faqData },
       { Results: seoData },
+      { Results: projectConfig },
     ] = await Promise.all(
       urls.map(async (url) => {
         const res = await fetch(url, {
@@ -112,6 +114,7 @@ export const getServerSideProps = async ({ locale, resolvedUrl, req }) => {
         bannerData: bannerData[0] || {},
         faqData: faqData || [],
         seoData: seoData || {},
+        projectConfig: projectConfig || {},
         absoluteUrl,
         locale,
       },

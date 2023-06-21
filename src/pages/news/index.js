@@ -8,6 +8,7 @@ import InnerBanner from "@/components/banners/InnerBanner";
 import NewsCard from "@/components/news/NewsCard";
 import useResources from "@/hooks/useResources";
 
+
 const News = (props) => {
   const { locale = "en", bannerData, newsData, seoData, absoluteUrl } = props;
 
@@ -104,6 +105,7 @@ export const getServerSideProps = async ({ locale, resolvedUrl, req }) => {
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/Banner/${process.env.COUNTRY_CODE}/NewsPageBanner/${locale}`,
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/AdvancedContent/${process.env.COUNTRY_CODE}/News/${locale}/Content`,
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/SEO/${locale}/News/Index`,
+    `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/ProjectConfiguration`,
   ];
 
   try {
@@ -111,6 +113,7 @@ export const getServerSideProps = async ({ locale, resolvedUrl, req }) => {
       { Results: bannerData },
       { Results: newsData },
       { Results: seoData },
+      { Results: projectConfig },
     ] = await Promise.all(
       urls.map(async (url) => {
         const res = await fetch(url, {
@@ -127,6 +130,7 @@ export const getServerSideProps = async ({ locale, resolvedUrl, req }) => {
         bannerData: bannerData[0] || {},
         newsData: newsData || [],
         seoData: seoData || {},
+        projectConfig: projectConfig || {},
         absoluteUrl,
         locale,
       },

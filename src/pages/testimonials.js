@@ -23,6 +23,7 @@ const Testimonials = (props) => {
     absoluteUrl,
     downloadProfileData,
     downloadformData,
+    projectConfig,
   } = props;
   const crumbs = [{ title: bannerData?.Title, href: "" }];
 
@@ -89,6 +90,7 @@ const Testimonials = (props) => {
           <DynamicDownloadProfileSec
             data={downloadProfileData}
             popData={downloadformData}
+            projectConfig={projectConfig}
           />
         )}
       </>
@@ -106,7 +108,7 @@ export const getServerSideProps = async ({ locale, resolvedUrl, req }) => {
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/SEO/${locale}/Testimonials/Index`,
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/Section/${process.env.COUNTRY_CODE}/${locale}/companyprofile`,
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/AdvancedContent/${process.env.COUNTRY_CODE}/downloadProfileForm/${locale}/Category/checkoutourcompanyprofile`,
-
+    `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/ProjectConfiguration`,
     // `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/Section/${process.env.COUNTRY_CODE}/${locale}/downloadform`,
   ];
 
@@ -117,6 +119,7 @@ export const getServerSideProps = async ({ locale, resolvedUrl, req }) => {
       { Results: seoData },
       { Results: downloadprofile },
       { Results: downloadform },
+      { Results: projectConfig },
     ] = await Promise.all(
       urls.map(async (url) => {
         const res = await fetch(url, {
@@ -133,6 +136,7 @@ export const getServerSideProps = async ({ locale, resolvedUrl, req }) => {
         bannerData: bannerData[0] || {},
         testimonialsData: testimonialsData || [],
         seoData: seoData || {},
+        projectConfig: projectConfig || {},
         absoluteUrl,
         locale,
         downloadProfileData: downloadprofile || {},

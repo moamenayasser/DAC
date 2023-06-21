@@ -159,10 +159,11 @@ export async function getServerSideProps({ locale, resolvedUrl, req, query }) {
   const urls = [
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/AdvancedContent/${process.env.COUNTRY_CODE}/News/${locale}/Content/${slug}`,
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/AdvancedContent/${process.env.COUNTRY_CODE}/News/${locale}/Content`,
+    `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/ProjectConfiguration`,
   ];
 
   try {
-    const [{ Results: newsData }, { Results: allnewsData }] = await Promise.all(
+    const [{ Results: newsData }, { Results: allnewsData }, { Results: projectConfig }] = await Promise.all(
       urls.map(async (url) => {
         const res = await fetch(url, {
           headers: {
@@ -192,6 +193,7 @@ export async function getServerSideProps({ locale, resolvedUrl, req, query }) {
         previous: previous || "",
         next: next || "",
         newsData: newsData || {},
+        projectConfig: projectConfig || {},
         absoluteUrl,
         locale,
       },

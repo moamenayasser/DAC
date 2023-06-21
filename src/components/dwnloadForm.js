@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import useResources from "@/hooks/useResources";
 import { getClientHost } from "@/utils";
 import { styled } from "@mui/material";
+// import customEmail from "@/lib/customEmail";
 
 const BoxWrap = styled(Box)({
   "& input": {
@@ -38,7 +39,7 @@ const initialErrors = {
   },
 };
 
-const DwnloadForm = ({ data, handleClose }) => {
+const DwnloadForm = ({ data, handleClose, projectConfig }) => {
 
   const documentLink = data?.AdvancedCategoryDocument?.find(
     (item) => item.Prima
@@ -51,6 +52,12 @@ const DwnloadForm = ({ data, handleClose }) => {
   const requiredField = useResources("requiredField");
   const numbersOnly = useResources("numbersOnly");
   const emailNotValid = useResources("emailNotValid");
+  const nameLabel = useResources("name");
+  const emailLabel = useResources("email");
+  const phoneLabel = useResources("phone");
+
+  // const emailProfileTitle = useResources("emailProfileTitle");
+  // const emailProfileDesc = useResources("emailProfiledesc");
 
   const handleFieldChange = (e) => {
     setFormValues((prev) => ({
@@ -106,6 +113,33 @@ const DwnloadForm = ({ data, handleClose }) => {
       // Subject for Contact is static
       formdata.append("Subject", "Download Profile");
 
+      
+      // const profileEmailData = [
+      //   {
+      //     label: nameLabel,
+      //     value: formValues.firstName,
+      //   },
+      //   {
+      //     label: emailLabel,
+      //     value: formValues.email,
+      //   },
+      //   {
+      //     label: phoneLabel,
+      //     value: formValues.phone,
+      //   },
+      // ];
+
+      // const downloadFormHtml = customEmail(
+      //   locale,
+      //   projectConfig?.Logo,
+      //   window.location.origin,
+      //   emailProfileTitle,
+      //   emailProfileDesc,
+      //   profileEmailData
+      // );
+
+      // console.log(downloadFormHtml);
+
       try {
         const response = await fetch(`${getClientHost()}/api/contact`, {
           method: "post",
@@ -158,7 +192,8 @@ const DwnloadForm = ({ data, handleClose }) => {
             <div style={{ marginBottom: "0rem" }}>
               <TextField
                 name="firstName"
-                label={useResources("name")}
+                label={nameLabel}
+                // label={useResources("name")}
                 variant="standard"
                 fullWidth
                 required
@@ -183,7 +218,8 @@ const DwnloadForm = ({ data, handleClose }) => {
             <div style={{ marginBottom: "1rem" }}>
               <TextField
                 name="email"
-                label={useResources("Email")}
+                label={emailLabel}
+                // label={useResources("Email")}
                 variant="standard"
                 required
                 fullWidth
@@ -224,7 +260,8 @@ const DwnloadForm = ({ data, handleClose }) => {
             <div>
               <TextField
                 name="phone"
-                label={useResources("phone")}
+                label={phoneLabel}
+                // label={useResources("phone")}
                 variant="standard"
                 required
                 fullWidth

@@ -69,10 +69,11 @@ export const getServerSideProps = async (props) => {
   const urls = [
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/Banner/${process.env.COUNTRY_CODE}/CareersPageBanner/${locale}`,
     `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/Career/${process.env.COUNTRY_CODE}/${locale}/${slug}`,
+    `${process.env.API_URL}/API/${process.env.PROJECT_CODE}/ProjectConfiguration`,
   ];
 
   try {
-    const [{ Results: bannerData }, { Results: careersData }] =
+    const [{ Results: bannerData }, { Results: careersData }, { Results: projectConfig }] =
       await Promise.all(
         urls.map(async (url) => {
           const res = await fetch(url, {
@@ -94,6 +95,7 @@ export const getServerSideProps = async (props) => {
       props: {
         bannerData: bannerData[0] || {},
         careersData: careersData || {},
+        projectConfig: projectConfig || {},
         absoluteUrl,
         locale,
       },
